@@ -3,7 +3,6 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "prod": "http-server dist/ -o",
-    "start": "npm run prod",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
