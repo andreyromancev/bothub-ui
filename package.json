@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "prod": "http-server dist/ -o",
+    "start": "",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
@@ -10,7 +10,6 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
-    "http-server": "^0.9.0",
     "node-sass": "^4.5.2",
     "sass-loader": "^6.0.3",
     "ts-loader": "^2.0.3",
