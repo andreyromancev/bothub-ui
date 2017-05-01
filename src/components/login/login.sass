@@ -1,0 +1,46 @@
+@import 'colors'
+@import 'bootstrap'
+@import 'modularscale'
+
+.login
+  height: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+
+.submit
+  color: darken(lightblue, 25%)
+  text-align: right
+  padding-right: 20px
+  margin-bottom: 10px
+  cursor: pointer
+  .material-icons
+    position: absolute
+
+.form
+  @include media-breakpoint-down(sm)
+    margin-bottom: 10px
+
+.panel
+  background: lightblue
+  padding: 20px 40px
+  @include border-radius(2px)
+
+.title
+  text-align: center
+  @include ms-respond(font-size, 1)
+  color: white
+  margin-bottom: 20px
+
+.default-input
+  display: block
+  margin: 10px 0
+  color: grey
+  line-height: 2.3em
+  padding: 0 1em
+
+  &::placeholder
+    color: silver
+
+  @include media-breakpoint-down(sm)
+    width: 100%

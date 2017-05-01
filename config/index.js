@@ -8,6 +8,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    stylesRoot: path.resolve(__dirname, '../src/styles'),
     productionSourceMap: false,
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
@@ -19,6 +20,7 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    stylesRoot: path.resolve(__dirname, '../src/styles'),
     proxyTable: {},
     cssSourceMap: false
   }

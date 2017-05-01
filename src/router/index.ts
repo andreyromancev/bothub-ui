@@ -1,15 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Register from '@/components/register/index.vue'
+import Register from '@/components/login/login.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/register',
-      name: 'Register',
+      path: '/login',
+      name: 'Login',
       component: Register,
+    },
+    { path: '/',
+      redirect: '/login',
     },
   ],
 })

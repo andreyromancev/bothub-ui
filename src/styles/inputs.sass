@@ -1,0 +1,22 @@
+@import "bootstrap"
+@import "colors"
+@import "modularscale"
+
+.default-input
+  border: none
+  @include border-radius(1px)
+  outline: none
+  @include ms-respond(font-size, 0)
+
+.default-button
+  display: inline-block
+  font-weight: normal
+  text-align: center
+  white-space: nowrap
+  vertical-align: middle
+  user-select: none
+  border: 1px solid transparent
+  outline: none
+  cursor: pointer
+  &:focus
+    outline: none

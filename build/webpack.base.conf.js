@@ -9,7 +9,8 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.ts'
+    app: './src/main.ts',
+    vendors: ['webpack-material-design-icons']
   },
   output: {
     path: config.build.assetsRoot,
