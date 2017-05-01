@@ -52,6 +52,7 @@
     "vue-template-compiler": "^2.2.6",
     "webpack": "^2.4.1",
     "webpack-bundle-analyzer": "^2.2.1",
+    "webpack-material-design-icons": "^0.1.0",
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
