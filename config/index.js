@@ -21,7 +21,12 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     stylesRoot: path.resolve(__dirname, '../src/styles'),
-    proxyTable: {},
+    proxyTable: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+    },
     cssSourceMap: false
   }
 }
