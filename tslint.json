@@ -1,7 +1,8 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint:recommended"
+        "tslint:recommended",
+        "tslint-eslint-rules"
     ],
     "jsRules": {},
     "rules": {
@@ -10,7 +11,11 @@
       "quotemark": [true, "single", "avoid-escape"],
       "semicolon": [true, "never"],
       "no-unused-expression": [true, "allow-new"],
-      "no-consecutive-blank-lines": [true, 2]
+      "no-consecutive-blank-lines": [true, 2],
+      "ter-indent": [true, 4],
+      "variable-name": [true, "allow-snake-case", "check-format", "allow-leading-underscore"],
+      "object-literal-key-quotes": [true, "consistent"],
+      "no-namespace": false
     },
     "rulesDirectory": []
 }

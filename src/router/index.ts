@@ -5,15 +5,16 @@ import Register from '@/components/login/login.vue'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/login',
-      name: 'Login',
-      component: Register,
-    },
-    { path: '/',
-      redirect: '/login',
-    },
-  ],
+    mode: 'history',
+    routes: [
+        {
+            path: '/login',
+            name: 'Login',
+            component: Register,
+        },
+        {
+            path: '/',
+            redirect: '/login',
+        },
+    ],
 })
