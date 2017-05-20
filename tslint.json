@@ -15,7 +15,22 @@
       "ter-indent": [true, 4],
       "variable-name": [true, "allow-snake-case", "check-format", "allow-leading-underscore"],
       "object-literal-key-quotes": [true, "consistent"],
-      "no-namespace": false
+      "no-namespace": false,
+      "member-ordering": [
+        true,
+        {
+          "order": [
+            "public-static-field",
+            "constructor",
+            "public-instance-field",
+            "public-instance-method",
+            "protected-instance-field",
+            "protected-instance-method",
+            "private-instance-field",
+            "private-instance-method"
+          ]
+        }
+      ]
     },
     "rulesDirectory": []
 }
