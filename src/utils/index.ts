@@ -1,1 +1,1 @@
-export {Store} from './store'
+export * from './local_store'

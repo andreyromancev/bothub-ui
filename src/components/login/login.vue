@@ -4,23 +4,23 @@
         <div class="col-sm">
             <div class="form login-form align-middle">
                 <div class="submit">
-                    <span class="submit-login">Войти</span>
+                    <span @click="submit_login" class="submit-login">Войти</span>
                     <i class="material-icons">keyboard_arrow_right</i>
                 </div>
                 <div class="panel">
-                    <input class="default-input" placeholder="Email"/>
-                    <input class="default-input" type="password" placeholder="Пароль"/>
+                    <input v-model="username" class="default-input" placeholder="Email"/>
+                    <input v-model="password" class="default-input" type="password" placeholder="Пароль"/>
                 </div>
             </div>
         </div>
         <div class="col-sm">
             <div class="form register-form align-middle">
                 <div class="submit">
-                    <span class="submit-register">Зарегистрироваться</span>
+                    <span @click="submit_register" class="submit-register">Зарегистрироваться</span>
                     <i class="material-icons">keyboard_arrow_right</i>
                 </div>
                 <div class="panel">
-                    <input class="default-input" placeholder="Email"/>
+                    <input v-model="username" class="default-input" placeholder="Email"/>
                 </div>
             </div>
         </div>

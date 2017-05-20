@@ -1,9 +1,9 @@
-export class Store {
-    constructor(prefix: string, parent?: Store) {
+export class LocalStore {
+    constructor(prefix: string, parent?: LocalStore) {
         this.parent = parent
         this.prefix = prefix
         if (parent) {
-            this.prefix = this.parent.prefix + Store.PATH_SEP + prefix
+            this.prefix = this.parent.prefix + LocalStore.PATH_SEP + prefix
         }
     }
 
@@ -16,27 +16,27 @@ export class Store {
             this.cache[key] = data
         }
 
-        localStorage.setItem(this.prefix + Store.KEY_SEP + key, this.serialize(data))
+        localStorage.setItem(this.prefix + LocalStore.KEY_SEP + key, this.serialize(data))
     }
 
     public get(key: string): any {
         if (this.cache[key] !== undefined) { return this.cache[key] }
 
-        const data = localStorage.getItem(this.prefix + Store.KEY_SEP + key)
+        const data = localStorage.getItem(this.prefix + LocalStore.KEY_SEP + key)
 
         return this.deserialize(data)
     }
 
     public del(key: string) {
         delete this.cache[key]
-        localStorage.removeItem(this.prefix + Store.KEY_SEP + key)
+        localStorage.removeItem(this.prefix + LocalStore.KEY_SEP + key)
     }
 
     private static PATH_SEP = '.'
     private static KEY_SEP = ':'
     private prefix: string = ''
     private cache = {}
-    private parent: Store = null
+    private parent: LocalStore = null
 
     private serialize(data: any): string {
         if (typeof data === 'string') {
