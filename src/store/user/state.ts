@@ -1,6 +1,5 @@
 export interface IUserState {
     id: number
-    name: string
+    username: string
     email: string
-    is_logged: boolean
 }

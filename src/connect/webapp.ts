@@ -5,7 +5,15 @@ import {LocalStore} from '@/utils'
 import {HTTP_400_BAD_REQUEST} from '@/utils/http'
 
 
-export namespace BothubAPI {
+export namespace Webapp {
+    export interface IAuthData {
+        id: number,
+        username: string,
+        email: string,
+        issued_time_s: number,
+        expire_time_s: number,
+    }
+
     export function request(config: AxiosRequestConfig): AxiosPromise {
         return axios_base.request(get_config(config)).catch(handle_error)
     }
@@ -29,8 +37,8 @@ export namespace BothubAPI {
     }
 
     export async function initialize(): Promise<void> {
-        auth_token = store.get(TOKEN_STORAGE_KEY)
-        if (auth_token) {
+        refresh_token = store.get(TOKEN_STORAGE_KEY)
+        if (refresh_token) {
             await refresh_authentication()
         }
     }
@@ -39,62 +47,66 @@ export namespace BothubAPI {
         username: string, password: string, is_auto_refresh: boolean = true): Promise<void> {
 
         const data = {'username': username, 'password': password}
-        await axios_post.post(AUTH_URL, data, get_config({baseURL: API_ROOT}))
+        await axios_post.post(TOKEN_REFRESH_URL, data, get_config({baseURL: API_ROOT}))
             .then((response) => {
-                save_credentials(response.data.token)
+                save_auth_data(response.data.access_token, response.data.refresh_token)
                 if (is_auto_refresh) { start_auth_refresh() }
             })
             .catch((error) => {
-                if (error.response.status === HTTP_400_BAD_REQUEST && auth_token) {
-                    clear_credentials()
+                if (error.response.status === HTTP_400_BAD_REQUEST) {
+                    clear_auth_data(true)
                 }
             })
     }
 
     export async function refresh_authentication(is_auto_refresh: boolean = true): Promise<void> {
-        const data = {token: auth_token}
-        await axios_post.post(REFRESH_URL, data, {baseURL: API_ROOT})
+        const data = {'refresh_token': refresh_token}
+        await axios_post.post(TOKEN_ACCESS_URL, data, {baseURL: API_ROOT})
             .then((response) => {
-                save_credentials(response.data.token)
+                save_auth_data(response.data.access_token)
                 if (is_auto_refresh) { start_auth_refresh() }
             })
             .catch((error) => {
-                if (error.response.status === HTTP_400_BAD_REQUEST && auth_token) {
-                    clear_credentials()
+                if (error.response.status === HTTP_400_BAD_REQUEST) {
+                    clear_auth_data(true)
                 }
             })
     }
 
     export function start_auth_refresh() {
-        if (!auth_credentials) { return }
+        if (!auth_data) { return }
 
-        const refresh_time_s = auth_credentials.exp - auth_credentials.orig_iat - 60
+        const refresh_time_s = auth_data.expire_time_s - auth_data.issued_time_s - 60
         if (refresh_time_s > 0) {
             auth_refresh_timer_id = setTimeout(refresh_authentication, refresh_time_s * 1000)
         } else {
-            refresh_authentication()
+            setTimeout(refresh_authentication, 1000 * 60)
         }
     }
 
-    export function clear_credentials() {
-        auth_token = null
-        auth_credentials = null
-        store.del(TOKEN_STORAGE_KEY)
+    export function clear_auth_data(is_full: boolean = false) {
+        access_token = null
+        auth_data = null
+        if (is_full) {
+            refresh_token = null
+            store.del(TOKEN_STORAGE_KEY)
+        }
+
         clearTimeout(auth_refresh_timer_id)
     }
 
-    export function has_auth_credentials(): boolean {
-        return !!auth_credentials
+    export function has_auth(): boolean {
+        return !!auth_data
     }
 
-    export function get_auth_credentials(): object {
-        return Object.assign({}, auth_credentials)
+    export function get_auth_data(): IAuthData {
+        return Object.assign({}, auth_data)
     }
 
 
     const API_ROOT = process.env.URL_ROOT_API
-    const AUTH_URL = '/api-token-auth/'
-    const REFRESH_URL = '/api-token-refresh/'
+    const TOKEN_REFRESH_URL = '/api-token-refresh/'
+    const TOKEN_ACCESS_URL = '/api-token-access/'
     const TOKEN_STORAGE_KEY = 'auth_token'
 
     const AXIOS_CONFIG_BASE = {
@@ -109,15 +121,16 @@ export namespace BothubAPI {
     const axios_post = axios.create(AXIOS_CONFIG_POST)
     const store = new LocalStore('bothub_api')
 
-    let auth_token: string = null
-    let auth_credentials: any = null
+    let refresh_token: string = null
+    let access_token: string = null
+    let auth_data: IAuthData = null
     let auth_refresh_timer_id: number = null
 
     function get_config(config: AxiosRequestConfig = {}): AxiosRequestConfig {
         const result: AxiosRequestConfig = {headers: {}}
 
-        if (auth_token) {
-            result.headers.Authorization = `JWT ${auth_token}`
+        if (access_token) {
+            result.headers.Authorization = `JWT ${access_token}`
         }
 
         return Object.assign(result, config)
@@ -129,13 +142,23 @@ export namespace BothubAPI {
         return JSON.stringify(data)
     }
 
-    function save_credentials(token: string) {
-        auth_token = token
-        auth_credentials = jwt_decode(token)
-        store.set(TOKEN_STORAGE_KEY, token)
+    function save_auth_data(a_token: string, r_token?: string) {
+        access_token = a_token
+        const payload = jwt_decode(access_token)
+        auth_data = {
+            id: payload.uid,
+            username: payload.una,
+            email: payload.ema,
+            issued_time_s: payload.iat,
+            expire_time_s: payload.exp,
+        }
+        if (r_token) {
+            refresh_token = r_token
+            store.set(TOKEN_STORAGE_KEY, refresh_token)
+        }
     }
 
     function handle_error(error) {
-        /* handle errors here */
+        throw error
     }
 }

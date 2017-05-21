@@ -1,7 +1,7 @@
 import { ActionContext, Store } from 'vuex'
 import { getStoreAccessors } from 'vuex-typescript'
 
-import { BothubAPI } from '@/connect/bothub'
+import { Webapp } from '@/connect/webapp'
 
 import { IRootState } from '@/store/state'
 import { IUserState } from './state'
@@ -9,14 +9,14 @@ import { IUserState } from './state'
 
 type UserContext = ActionContext<IUserState, IRootState>
 
+
 export const user = {
     namespaced: true,
 
     state: {
         id: null,
-        name: null,
+        username: null,
         email: null,
-        is_logged: false,
     },
 
     getters: {},
@@ -24,40 +24,39 @@ export const user = {
     mutations: {
         reset(state: IUserState) {
             state.id = null
-            state.name = null
+            state.username = null
             state.email = null
-            state.is_logged = false
         },
 
-        fill_credentials(state: IUserState, data: {id: number, name: string, email: string}) {
-            state.id = data.id
-            state.name = data.name
-            state.email = data.email
-            state.is_logged = true
+        update(state: IUserState) {
+            const auth_data = Webapp.get_auth_data()
+            state.id = auth_data.id
+            state.username = auth_data.username
+            state.email = auth_data.email
         },
     },
 
     actions: {
-        async log_in(context: UserContext, data: {username: string, password: string}): Promise<void> {
-            if (! await BothubAPI.authenticate(data.username, data.password)) {
-                return
-            }
-
-            await dispatch.fetch_credentials(context)
-        },
-
-        async fetch_credentials(context: UserContext): Promise<void> {
-            return BothubAPI.get('/users/')
-                .then((response) => {
-                    const user_data = response.data[0]
-                    const credentials = {
-                        id: user_data.id,
-                        name: user_data.email,
-                        email: user_data.email,
-                    }
-                    commit.fill_credentials(context, credentials)
-                })
-        },
+        // async log_in(context: UserContext, data: {username: string, password: string}): Promise<void> {
+        //     if (! await Webapp.authenticate(data.username, data.password)) {
+        //         return
+        //     }
+        //
+        //     await dispatch.fetch_credentials(context)
+        // },
+        //
+        // async fetch_credentials(context: UserContext): Promise<void> {
+        //     return Webapp.get('/users/')
+        //         .then((response) => {
+        //             const user_data = response.data[0]
+        //             const credentials = {
+        //                 id: user_data.id,
+        //                 name: user_data.email,
+        //                 email: user_data.email,
+        //             }
+        //             commit.fill_credentials(context, credentials)
+        //         })
+        // },
     },
 }
 
@@ -70,9 +69,9 @@ const actions = user.actions
 
 export const read = {}
 export const commit = {
-    fill_credentials: accessors.commit(mutations.fill_credentials),
+    update: accessors.commitNoPayload(mutations.update),
 }
 export const dispatch = {
-    log_in: accessors.dispatch(actions.log_in),
-    fetch_credentials: accessors.dispatchNoPayload(actions.fetch_credentials),
+    // log_in: accessors.dispatch(actions.log_in),
+    // fetch_credentials: accessors.dispatchNoPayload(actions.fetch_credentials),
 }
