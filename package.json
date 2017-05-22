@@ -5,7 +5,8 @@
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
-    "lint": "tslint --project ./tsconfig.json --type-check"
+    "lint": "tslint --project ./tsconfig.json --type-check",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "autoprefixer": "^6.7.2",
