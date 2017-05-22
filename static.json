@@ -1,12 +1,8 @@
 {
   "root": "dist/",
   "https_only": true,
-  "redirects": {
-    "/api/": {
-      "url": "${URL_ROOT_API}/test/"
-    }
-  },
   "routes": {
+    "/test/": "/${NODE_ENV}/test.json",
     "/**": "/index.html"
   },
   "headers": {
