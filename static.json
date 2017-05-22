@@ -2,7 +2,7 @@
   "root": "dist/",
   "https_only": true,
   "routes": {
-    "/test/": "/${NODE_ENV}/test.json",
+    "/test/": "/${CONFIG_FILE}/test.json",
     "/**": "/index.html"
   },
   "headers": {
