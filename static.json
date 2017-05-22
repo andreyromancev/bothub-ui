@@ -2,12 +2,12 @@
   "root": "dist/",
   "https_only": true,
   "redirects": {
-    "/test_url/": {
-      "url": "${URL_ROOT_API}/api/"
+    "/api/": {
+      "url": "${URL_ROOT_API}/test/"
     }
   },
   "routes": {
-    "/": "index.html"
+    "/**": "index.html"
   },
   "headers": {
     "/": {
