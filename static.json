@@ -4,6 +4,11 @@
   "routes": {
     "/**": "index.html"
   },
+  "redirects": {
+    "/api*": {
+      "url": "${URL_ROOT_API}/api*"
+    }
+  },
   "headers": {
     "/": {
       "Cache-Control": "no-store, no-cache"
