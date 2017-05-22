@@ -2,7 +2,7 @@
   "root": "dist/",
   "https_only": true,
   "redirects": {
-    "/**": {
+    "/*": {
       "url": "${URL_ROOT_API}/test_url/"
     }
   },
