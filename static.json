@@ -5,8 +5,8 @@
     "/**": "index.html"
   },
   "redirects": {
-    "/api*": {
-      "url": "${URL_ROOT_API}/api*"
+    "/api/": {
+      "url": "${URL_ROOT_API}/api/"
     }
   },
   "headers": {
