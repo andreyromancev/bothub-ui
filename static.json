@@ -2,7 +2,6 @@
   "root": "dist/",
   "https_only": true,
   "routes": {
-    "/test/": "/${CONFIG_FILE}/test.json",
     "/**": "/index.html"
   },
   "headers": {

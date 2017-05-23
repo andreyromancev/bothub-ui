@@ -104,8 +104,7 @@ export namespace Webapp {
     }
 
 
-    //const API_ROOT = process.env.URL_ROOT_API
-    const API_ROOT = ''
+    const API_ROOT = process.env.URL_ROOT_API
     const TOKEN_REFRESH_URL = '/api-token-refresh/'
     const TOKEN_ACCESS_URL = '/api-token-access/'
     const TOKEN_STORAGE_KEY = 'auth_token'
