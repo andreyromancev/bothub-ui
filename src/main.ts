@@ -18,7 +18,6 @@ Vue.use(Vuex)
 Vue.use(Router)
 // Vue.use(BootstrapVue)
 
-
 const router = create_router()
 const store = create_store()
 
