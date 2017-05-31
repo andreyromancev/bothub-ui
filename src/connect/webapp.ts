@@ -69,6 +69,8 @@ export namespace Webapp {
             .catch((error) => {
                 if (error.response.status === HTTP_400_BAD_REQUEST) {
                     clear_auth_data(true)
+                } else {
+                    setTimeout(refresh_authentication, 1000 * 60)
                 }
             })
     }
