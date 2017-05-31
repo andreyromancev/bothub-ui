@@ -15,16 +15,4 @@ export default class Messenger extends Vue {
         Webapp.clear_auth_data(true)
         this.$router.push('/login')
     }
-
-    private created() {
-        Webapp.initialize()
-            .then(() => {
-                if (Webapp.has_auth()) {
-                    user.commit.update(this.$store)
-                    this.$router.push('/me')
-                } else {
-                    this.$router.push('/login')
-                }
-            })
-    }
 }

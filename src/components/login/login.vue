@@ -8,7 +8,7 @@
                     <i class="material-icons">keyboard_arrow_right</i>
                 </div>
                 <div class="panel">
-                    <input v-model="username" class="default-input" placeholder="Email"/>
+                    <input v-model="username" class="default-input" type="email" placeholder="Email"/>
                     <input v-model="password" class="default-input" type="password" placeholder="Пароль"/>
                 </div>
             </div>

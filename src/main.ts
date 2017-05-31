@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import App from './app.vue'
 import { create_router } from '@/router'
 import { create_store } from '@/store'
+import { Webapp } from '@/connect/webapp'
 
 // import BootstrapVue from 'bootstrap-vue'
 // import 'bootstrap/dist/css/bootstrap.css'
@@ -21,10 +22,12 @@ Vue.use(Router)
 const router = create_router()
 const store = create_store()
 
-new Vue({
-    router,
-    store,
-    el: '.app',
-    template: '<App/>',
-    components: { App },
+Webapp.initialize().then(() => {
+    new Vue({
+        router,
+        store,
+        el: '.app',
+        template: '<App/>',
+        components: { App },
+    })
 })

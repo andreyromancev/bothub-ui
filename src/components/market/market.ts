@@ -3,5 +3,6 @@ import { Component } from 'vue-property-decorator'
 
 
 @Component
-export default class AppLoader extends Vue {
+export default class Market extends Vue {
+
 }
