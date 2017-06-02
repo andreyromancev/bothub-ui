@@ -10,8 +10,6 @@ export namespace Webapp {
         id: number,
         username: string,
         email: string,
-        issued_time_s: number,
-        expire_time_s: number,
     }
 
     export function request(config: AxiosRequestConfig): AxiosPromise {
@@ -50,7 +48,7 @@ export namespace Webapp {
         await axios_post.post(TOKEN_REFRESH_URL, data, get_config({baseURL: API_ROOT}))
             .then((response) => {
                 save_auth_data(response.data.access_token, response.data.refresh_token)
-                if (is_auto_refresh) { start_auth_refresh() }
+                if (is_auto_refresh) { start_auth_refresh(response.data.expires_in) }
             })
             .catch((error) => {
                 if (error.response.status === HTTP_400_BAD_REQUEST) {
@@ -64,7 +62,7 @@ export namespace Webapp {
         await axios_post.post(TOKEN_ACCESS_URL, data, {baseURL: API_ROOT})
             .then((response) => {
                 save_auth_data(response.data.access_token)
-                if (is_auto_refresh) { start_auth_refresh() }
+                if (is_auto_refresh) { start_auth_refresh(response.data.expires_in) }
             })
             .catch((error) => {
                 if (error.response.status === HTTP_400_BAD_REQUEST) {
@@ -75,10 +73,10 @@ export namespace Webapp {
             })
     }
 
-    export function start_auth_refresh() {
+    export function start_auth_refresh(timeout: number) {
         if (!auth_data) { return }
 
-        const refresh_time_s = auth_data.expire_time_s - auth_data.issued_time_s - 60
+        const refresh_time_s = timeout - 60
         if (refresh_time_s > 0) {
             auth_refresh_timer_id = setTimeout(refresh_authentication, refresh_time_s * 1000)
         } else {
@@ -107,8 +105,8 @@ export namespace Webapp {
 
 
     const API_ROOT = process.env.URL_ROOT_API
-    const TOKEN_REFRESH_URL = '/api-token-refresh/'
-    const TOKEN_ACCESS_URL = '/api-token-access/'
+    const TOKEN_REFRESH_URL = '/auth/refresh_token/'
+    const TOKEN_ACCESS_URL = '/auth/access_token/'
     const TOKEN_STORAGE_KEY = 'auth_token'
 
     const AXIOS_CONFIG_BASE = {
@@ -151,8 +149,6 @@ export namespace Webapp {
             id: payload.uid,
             username: payload.una,
             email: payload.ema,
-            issued_time_s: payload.iat,
-            expire_time_s: payload.exp,
         }
         if (r_token) {
             refresh_token = r_token
