@@ -12,7 +12,7 @@ export default class Messenger extends Vue {
     }
 
     private logout() {
-        Webapp.clear_auth_data(true)
+        Webapp.clearAuthData(true)
         this.$router.push('/login')
     }
 }

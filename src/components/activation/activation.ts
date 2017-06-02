@@ -8,7 +8,7 @@ import { Webapp } from '@/connect/webapp'
 export default class Activation extends Vue {
     private password: string = ''
 
-    private submit_activation() {
+    private submitActivation() {
         Webapp.post('/users/activate/', {activation_key: this.$route.query.activation_key, password: this.password})
             .then(() => this.$router.push('/login'))
             .catch(() => alert('Не получилось :('))

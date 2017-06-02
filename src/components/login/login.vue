@@ -4,7 +4,7 @@
         <div class="col-sm">
             <div class="form login-form align-middle">
                 <div class="submit">
-                    <span @click="submit_login" class="submit-login">Войти</span>
+                    <span @click="submitLogin" class="submit-login">Войти</span>
                     <i class="material-icons">keyboard_arrow_right</i>
                 </div>
                 <div class="panel">
@@ -16,7 +16,7 @@
         <div class="col-sm">
             <div class="form register-form align-middle">
                 <div class="submit">
-                    <span @click="submit_register" class="submit-register">Зарегистрироваться</span>
+                    <span @click="submitRegister" class="submit-register">Зарегистрироваться</span>
                     <i class="material-icons">keyboard_arrow_right</i>
                 </div>
                 <div class="panel">

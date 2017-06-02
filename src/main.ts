@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import Vuex from 'vuex'
 
 import App from './app.vue'
-import { create_router } from '@/router'
-import { create_store } from '@/store'
+import { createRouter } from '@/router'
+import { createStore } from '@/store'
 import { Webapp } from '@/connect/webapp'
 
 // import BootstrapVue from 'bootstrap-vue'
@@ -19,8 +19,8 @@ Vue.use(Vuex)
 Vue.use(Router)
 // Vue.use(BootstrapVue)
 
-const router = create_router()
-const store = create_store()
+const router = createRouter()
+const store = createStore()
 
 Webapp.initialize().then(() => {
     new Vue({

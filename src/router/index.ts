@@ -5,7 +5,7 @@ import Messenger from '@/components/messenger/messenger.vue'
 import Activation from '@/components/activation/activation.vue'
 
 
-export const create_router = () => new Router({
+export const createRouter = () => new Router({
     mode: 'history',
     routes: [
         {

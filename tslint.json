@@ -13,9 +13,9 @@
       "no-unused-expression": [true, "allow-new"],
       "no-consecutive-blank-lines": [true, 2],
       "ter-indent": [true, 4],
-      "variable-name": [true, "allow-snake-case", "check-format", "allow-leading-underscore"],
       "object-literal-key-quotes": [true, "consistent"],
       "no-namespace": false,
+      "interface-name": [true, "never-prefix"],
       "member-ordering": [
         true,
         {

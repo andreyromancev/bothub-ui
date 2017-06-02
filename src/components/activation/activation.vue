@@ -2,7 +2,7 @@
 <div class="activation container-fluid">
     <div class="form activate-form align-middle">
         <div class="submit">
-            <span @click="submit_activation" class="submit-login">Активировать</span>
+            <span @click="submitActivation" class="submit-login">Активировать</span>
             <i class="material-icons">keyboard_arrow_right</i>
         </div>
         <div class="panel">

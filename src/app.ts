@@ -7,7 +7,7 @@ import * as user from '@/store/user'
 @Component
 export default class App extends Vue {
     private beforeCreate() {
-        if (Webapp.has_auth()) {
+        if (Webapp.hasAuth()) {
             user.commit.update(this.$store)
         }
     }

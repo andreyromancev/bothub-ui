@@ -29,10 +29,10 @@ export const user = {
         },
 
         update(state: IUserState) {
-            const auth_data = Webapp.get_auth_data()
-            state.id = auth_data.id
-            state.username = auth_data.username
-            state.email = auth_data.email
+            const data = Webapp.getAuthData()
+            state.id = data.id
+            state.username = data.username
+            state.email = data.email
         },
     },
 
