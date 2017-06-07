@@ -16,13 +16,14 @@
       "object-literal-key-quotes": [true, "consistent"],
       "no-namespace": false,
       "interface-name": [true, "never-prefix"],
+      "triple-equals": false,
       "member-ordering": [
         true,
         {
           "order": [
             "public-static-field",
-            "constructor",
             "public-instance-field",
+            "constructor",
             "public-instance-method",
             "protected-instance-field",
             "protected-instance-method",

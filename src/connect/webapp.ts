@@ -1,8 +1,8 @@
 import axios, {AxiosRequestConfig, AxiosPromise} from 'axios'
 import * as jwt_decode from 'jwt-decode'
 
-import {LocalStore} from '@/utils'
-import {HTTP_400_BAD_REQUEST} from '@/utils/http'
+import {LocalStore} from '@/lib/utils'
+import {HTTP_400_BAD_REQUEST} from '@/lib/utils/http'
 
 
 export namespace Webapp {

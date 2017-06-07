@@ -2,6 +2,7 @@
 <div class="container-fluid">
     <div class="content">
         <input class="default-input search-input" type="text"/>
+        <bot-card v-for="bot in bots" :key="bot.data.id" :model="bot"></bot-card>
     </div>
 </div>
 </template>
