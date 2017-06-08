@@ -1,7 +1,7 @@
 <template>
-<div>
-    {{ bot.name }}
-    {{ bot.shortDescription }}
+<div class="card">
+    <div class="title">{{ bot.name }}</div>
+    <div class="description">{{ bot.shortDescription }}</div>
 </div>
 </template>
 
