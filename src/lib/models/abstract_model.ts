@@ -1,4 +1,4 @@
-export abstract class BaseModel {
+export abstract class AbstractModel {
     public data: {
         id: number,
         url: string,

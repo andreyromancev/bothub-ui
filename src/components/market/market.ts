@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import { Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
+import { Debounce } from 'lodash-decorators'
 
 import BotCard from './bot_card/bot_card.vue'
 import { BotProfiles } from './models/bot_profiles'
@@ -13,13 +14,24 @@ export default class Market extends Vue {
     private botCollection = new BotProfiles()
     private bots: BotProfile[] = []
 
+    private searchString: string = ''
+
     private created() {
-        this.updateBots()
+        this.fetchBots()
     }
 
+    private async fetchBots(options?) {
+        await this.botCollection.fetch(options)
+        this.bots = this.botCollection.content
+    }
 
-    private async updateBots() {
-        await this.botCollection.fetch()
-        this.bots = this.botCollection.models
+    private async appendBots() {
+        await this.botCollection.fetchNext()
+    }
+
+    @Debounce(500)
+    @Watch('searchString')
+    private onSearchChange(newSearch) {
+        this.fetchBots({search: newSearch})
     }
 }

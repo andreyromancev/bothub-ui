@@ -1,2 +1,2 @@
-export * from './base_model'
-export * from './base_collection'
+export * from './abstract_model'
+export * from './abstract_collection'

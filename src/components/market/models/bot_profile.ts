@@ -1,7 +1,7 @@
-import { BaseModel } from '@/lib/models'
+import { AbstractModel } from '@/lib/models'
 
 
-export class BotProfile extends BaseModel {
+export class BotProfile extends AbstractModel {
     public data: {
         id: number,
         url: string,
