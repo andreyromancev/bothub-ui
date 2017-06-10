@@ -17,21 +17,8 @@
       "no-namespace": false,
       "interface-name": [true, "never-prefix"],
       "triple-equals": false,
-      "member-ordering": [
-        true,
-        {
-          "order": [
-            "public-static-field",
-            "public-instance-field",
-            "constructor",
-            "public-instance-method",
-            "protected-instance-field",
-            "protected-instance-method",
-            "private-instance-field",
-            "private-instance-method"
-          ]
-        }
-      ]
+      "radix": false,
+      "member-ordering": false
     },
     "rulesDirectory": []
 }

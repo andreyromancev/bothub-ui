@@ -10,6 +10,6 @@ export default class BotCard extends Vue {
     private model: BotProfile
 
     get bot() {
-        return this.model.data
+        return this.model.content
     }
 }

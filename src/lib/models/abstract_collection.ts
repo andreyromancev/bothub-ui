@@ -11,16 +11,20 @@ export abstract class AbstractCollection {
     }
 
     public clear() {
-        this.models = []
+        this.models.splice(0)
     }
 
-    public async fetch(options?): Promise<void> {
+    public async fetch(options?): Promise<boolean> {
         this.getQuery(options)
         const response = await Webapp.get(this.url + '/' + this.getQuery(options))
         if (response.status == http.HTTP_200_OK) {
             this.clear()
             this.appendResponseData(response.data)
+
+            return true
         }
+
+        return false
     }
 
     public async fetchNext(): Promise<boolean> {

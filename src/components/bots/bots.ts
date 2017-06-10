@@ -10,19 +10,19 @@ import { BotProfile } from './models/bot_profile'
 @Component({
     components: {BotCard},
 })
-export default class Market extends Vue {
+export default class Bots extends Vue {
     private botCollection = new BotProfiles()
     private bots: BotProfile[] = []
 
     private searchString: string = ''
 
     private created() {
+        this.bots = this.botCollection.content
         this.fetchBots()
     }
 
     private async fetchBots(options?) {
         await this.botCollection.fetch(options)
-        this.bots = this.botCollection.content
     }
 
     private async appendBots() {
